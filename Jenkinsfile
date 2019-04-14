@@ -16,12 +16,12 @@ node('docker-slave-general') {
   }
   
   stage('Run') { // Run the built image
-    sh "docker run -d --name webserver --rm -p 8081:5000 ${DockerImage}; sleep 5"
+    sh "docker run -d --name webserver --rm -p 8082:5000 ${DockerImage}; sleep 5"
   }
   
   stage('Test') { // Run tests on container
     def dockerOutput = sh (
-        script: 'curl http://172.17.0.1:8081/goaway',
+        script: 'curl http://172.17.0.1:8082/goaway',
         returnStdout: true
         ).trim()
     sh "docker rm -f webserver"
