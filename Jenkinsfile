@@ -36,7 +36,7 @@ node('docker-slave-general') {
   }
   
   stage('Push') { // Push the image to repository
-   withDockerRegistry([ credentialsId: "hezil_dockerhub", url: "" ]) {
+   withDockerRegistry([ credentialsId: "hezil_dockerhub", url: "https://cloud.docker.com/u/hezil/repository/docker/hezil/hezi" ]) {
          sh "docker push ${DockerImage}"
        }
    sh "docker rmi ${DockerImage}"
