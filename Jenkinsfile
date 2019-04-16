@@ -40,7 +40,8 @@ node('docker-slave-general') {
           // This step should not normally be used in your script. Consult the inline help for details.
         withDockerRegistry(credentialsId: 'hezil_dockerhub') {
             // some block
-            sh "docker push ${DockerImage} "
+            sh "docker push ${DockerImage}"
+            sh "docker rmi ${DockerImage}"
         }
   }
 
