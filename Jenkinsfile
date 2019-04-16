@@ -1,8 +1,8 @@
 pipeline {
   environment {
-    registry = "hezil/hezi"
-    registryCredential = 'hezil_dockerhub'
-    dockerImage = ''
+    registry = "gustavoapolinario/docker-test"
+    registryCredential = 'dockerhub'
+    dockerImage = 'webserver:v1.0'
   }
 node('docker-slave-general') { 
   def DockerImage = "webserver:v1.0"
@@ -42,19 +42,19 @@ node('docker-slave-general') {
   }
 
   stage('Deploy Image') {
-     steps{
-       script {
-         docker.withRegistry( '', registryCredential ) {
-           dockerImage.push()
-         }
-       }
-     }
-   }
-  
-  stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
+    steps{
+      script {
+        docker.withRegistry( '', registryCredential ) {
+          dockerImage.push()
+        }
       }
     }
   }
+  
+  stage('Remove Unused docker image') {
+    steps{
+      sh "docker rmi $registry:$BUILD_NUMBER"
+    }
+  }
 }
+  
