@@ -57,4 +57,3 @@ node('docker-slave-general') {
     }
   }
 }
-  
