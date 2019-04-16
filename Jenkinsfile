@@ -1,11 +1,7 @@
-pipeline {
-  environment {
-    registry = "gustavoapolinario/docker-test"
-    registryCredential = 'dockerhub'
-    dockerImage = 'webserver:v1.0'
-  }
 node('docker-slave-general') { 
   def DockerImage = "webserver:v1.0"
+  def registry = "hezil/hezi"
+  def registryCredential = 'hezil_dockerhub'
   
   stage('Pre') { // Run pre-build steps
     cleanWs()
