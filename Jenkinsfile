@@ -1,3 +1,9 @@
+pipeline {
+  environment {
+    registry = "hezil/hezi"
+    registryCredential = 'hezil_dockerhub'
+    dockerImage = ''
+  }
 node('docker-slave-general') { 
   def DockerImage = "webserver:v1.0"
   
@@ -34,12 +40,21 @@ node('docker-slave-general') {
     }
     return
   }
-  
-  stage('Push') { // Push the image to repository
-   withDockerRegistry([ credentialsId: "hezil_dockerhub", url: "https://cloud.docker.com/u/hezil/repository/docker/hezil/hezi" ]) {
-         sh "docker push ${DockerImage}"
+
+  stage('Deploy Image') {
+     steps{
+       script {
+         docker.withRegistry( '', registryCredential ) {
+           dockerImage.push()
+         }
        }
-   sh "docker rmi ${DockerImage}"
-   return
- }
+     }
+   }
+  
+  stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+  }
 }
