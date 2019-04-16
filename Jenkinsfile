@@ -2,6 +2,7 @@ pipeline {
   environment {
     registry = "hezil/hezi"
     registryCredential = 'hezil_dockerhub'
+    dockerImage = ''
   }
 node('docker-slave-general') { 
   def DockerImage = "webserver:v1.0"
