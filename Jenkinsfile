@@ -52,7 +52,7 @@ node('docker-slave-general') {
     }
     stage('Remove Unused docker image') {
       steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
+        sh "docker rmi ${DockerImage}"
       }
     }
   }
