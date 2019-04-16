@@ -1,5 +1,5 @@
 node('docker-slave-general') {
-  def DockerImage = "hezil/webserver:v1.0"
+  def DockerImage = "hezil/hezi"
 
   stage('Pre') { // Run pre-build steps
     cleanWs()
